@@ -1,0 +1,9 @@
+$? 函数返回值
+$0脚本名称
+$1参数1  后面参数类推
+
+cat test.txt | sed 's/ /\n/g'|grep -v "^$"|sort -nr|sed -n '$p;1p'
+				去除空格		排除空行	排序			取出最后一行和第一行
+				
+cat sed.sh | sed -n '5,$p'| sed 's/ /\n/g' | grep -v '^$'|sort -n|sed -n '1p;$p'
+			从第5行到最后一行
