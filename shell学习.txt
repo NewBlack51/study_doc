@@ -7,3 +7,42 @@ cat test.txt | sed 's/ /\n/g'|grep -v "^$"|sort -nr|sed -n '$p;1p'
 				
 cat sed.sh | sed -n '5,$p'| sed 's/ /\n/g' | grep -v '^$'|sort -n|sed -n '1p;$p'
 			从第5行到最后一行
+			
+找到某个字符下一行插入  sed -i '/up/a down----' test.txt
+								查找的字符  a向下i向上  原文件  
+找到某个字符上一行插入	sed -i '/down/i up-----' test.txt
+
+查找ip  grep
+									E 正则表达式  ()分组{1，3}一个到三个数字  
+cat ip.txt | sed 's/ /\n/g' | grep -E '([0-9]{1,3}\.){3}[0-9]{1,3}'
+
+查找ip  grep
+ip add | grep 'inet' | awk '{print $2}' | grep -E '([0-9]{1,3}\.){3}[0-9]{1,3}' | sed -n '2p' | sed 's/\/24//g'
+
+
+awk -F 格式化
+cat ip.txt | awk -F: '{print $2}'
+
+增量备份  全局备份	-g  
+tar -g snapshot -zcvf add2_bak.tar.gz /data/shell/
+
+恶意ip查找  封杀
+cat /var/log/secure | grep "Accepted password" | awk '{print $11}' | sort -nr| uniq -c|awk '$1 >4 {print $1}'
+
+
+while循环读取文件每行内容
+while read line
+do
+        echo $line | awk '{ print $2}'
+done < ip.txt
+
+
+判断输入参数是否为空  shell中推出用exit  如果是函数 用return  用$?获取函数返回值
+if [ -z $1 ]; then
+        echo "参数为空。。。"
+        exit
+fi
+
+变量赋值
+num=`expr 1 + 3`;echo $num
+
