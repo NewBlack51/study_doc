@@ -1,0 +1,54 @@
+删除所有容器  
+docker ps -q | xargs docker rm
+
+启动容器
+docker run -it centos
+退出容器不关闭：按住ctrl+p+q
+推出关闭容器: exit
+
+进入容器
+docker attach 容器ID
+容器外执行 docker exec --help
+docker exec -it 58fdcc92cfd2 touch  /tmp/2.txt
+
+删除容器镜像
+
+停止容器
+docker stop 容器ID  
+docker kill 容器ID
+
+删除容器
+docker rm -f 容器ID
+
+启动容器
+docker start 容器ID
+
+将容器内文件拷贝到宿主机
+docker cp 容器ID:/usr/local/tomcat/BUILDING.txt /dest宿主机目录
+
+容器变镜像
+docker commit -a chen -m "add txt in tmp" 容器ID mycentos:v1.1
+
+容器卷映射			宿主机目录：容器目录  读写
+docker run -it -v /host:/container  容器镜像ID
+
+容器卷映射			宿主机目录：容器目录 ro容器只读
+docker run -it -v /host:/container:ro  容器镜像ID
+
+容器卷共享  
+docker run --rm --volumes-from 继承的容器ID 容器镜像ID  
+
+CMD 用户执行容器启动命令加的参数会覆盖CMD中的命令
+ENTRYPOINT 用户执行容器启动命令加的参数会加进去
+-----------------------------------------------
+###Dockerfile
+FROM centos
+
+WORKDIR /usr/local
+
+RUN yum install -y curl
+
+ENTRYPOINT ["curl","-s","https://ip.cn"]
+------------------------------------------------
+
+

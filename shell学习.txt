@@ -36,6 +36,12 @@ do
         echo $line | awk '{ print $2}'
 done < ip.txt
 
+for循环读取文件内容
+for line in `cat ip.txt`
+do
+        echo "$line ----"
+done
+
 
 判断输入参数是否为空  shell中推出用exit  如果是函数 用return  用$?获取函数返回值
 if [ -z $1 ]; then
@@ -45,4 +51,10 @@ fi
 
 变量赋值
 num=`expr 1 + 3`;echo $num
+
+EOF使用   
+cat >> test.txt << EOF
+> xixi
+> haha
+> EOF
 
