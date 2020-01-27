@@ -1,0 +1,10 @@
+ntp时间同步centos7
+yum -y install ntp
+rm -rf /etc/localtime
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+/usr/sbin/ntpdate -u ntp3.aliyun.com
+
+crontab -e #配置定时同步
+*/1 * * * *  /usr/sbin/ntpdate -u ntp3.aliyun.com >/dev/null 2>&1
+
+service crond restart
